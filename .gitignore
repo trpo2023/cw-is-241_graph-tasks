@@ -1,5 +1,5 @@
-*.
-*.[oa]
+app
+*.[oad]
 *.swp
 *.save
 .vscode

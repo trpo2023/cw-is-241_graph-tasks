@@ -1,3 +1,7 @@
+#include <stdio.h>
+
+typedef struct matrix Matrix;
+
 typedef struct tools {
     int* checked; // Массив для отслеживания посещенных вершин
     int* path;    // Текущий путь
