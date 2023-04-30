@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MATRIX_SIZE 5
-#define SIZE 100
+#define MAX_SIZE 100
 
 typedef struct tools {
     int* checked; // Массив для отслеживания посещенных вершин
@@ -12,7 +12,7 @@ typedef struct tools {
 } Tools;
 
 typedef struct paths {
-    int all_paths[SIZE][SIZE]; // Двумерный массив для хранения всех путей
+    int** all_paths; // Двумерный массив для хранения всех путей
     int number; // Переменная для подсчёта количества путей
 } Paths;
 
@@ -24,6 +24,8 @@ void paths_search(
         Tools* search);
 Paths* how_many_paths(int start, int end, int graph[][MATRIX_SIZE], Paths* aim);
 Paths* new_path(int size);
+
+int** prepare_two_dim_arr(int** arr);
 
 int main()
 {
@@ -38,8 +40,9 @@ int main()
     printf("Введите начальную и конечную вершину: ");
     scanf("%d %d", &start, &end);
 
-    Paths* aim;
-    aim = new_path(SIZE);
+    Paths* aim = (Paths*)malloc(sizeof(Paths));
+    aim->all_paths = prepare_two_dim_arr(aim->all_paths);
+    aim->number = 0;
     // Запускаем поиск путей
     aim = how_many_paths(start, end, graph, aim);
 
@@ -48,7 +51,7 @@ int main()
     for (int i = 0; i < aim->number; i++) {
         printf("%d. ", i + 1);
         int j = 0;
-        for (j = 0; j < SIZE && aim->all_paths[i][j + 1] != -1; j++) {
+        for (j = 0; j < MAX_SIZE && aim->all_paths[i][j + 1] != -1; j++) {
             printf("%d -> ", aim->all_paths[i][j]);
         }
         printf("%d", aim->all_paths[i][j]);
@@ -58,22 +61,15 @@ int main()
     return 0;
 }
 
-// Функция для выделения памяти под структуру типа Paths
-Paths* new_path(int size)
+// Функция для выделения памяти под двумерный массив
+int** prepare_two_dim_arr(int** arr)
 {
-    Paths* aim = (Paths*)malloc(sizeof(Paths));
+    arr = malloc(MAX_SIZE * sizeof(int*));
+    for (int i = 0; i < MAX_SIZE; i++) {
+        arr[i] = malloc(MAX_SIZE * sizeof(int));
+    }
 
-    if (!aim) {
-        free(aim);
-        return NULL;
-    }
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            aim->all_paths[i][j] = 0;
-        }
-    }
-    aim->number = 0;
-    return aim;
+    return arr;
 }
 
 // Рекурсивная функция для обхода графа в глубину и нахождения всех путей
@@ -116,12 +112,12 @@ Paths* how_many_paths(int start, int end, int graph[][MATRIX_SIZE], Paths* aim)
     Tools search;
     search.path_len = 0;
     search.num_paths = 0;
-    search.checked = (int*)calloc(SIZE, sizeof(int));
+    search.checked = (int*)calloc(MAX_SIZE, sizeof(int));
     if (!search.checked) {
         free(search.checked);
         return NULL;
     }
-    search.path = (int*)calloc(SIZE, sizeof(int));
+    search.path = (int*)calloc(MAX_SIZE, sizeof(int));
     if (!search.path) {
         free(search.path);
         return NULL;
