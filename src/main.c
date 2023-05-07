@@ -3,6 +3,7 @@
 
 #include "all_search.h"
 #include "input.h"
+#include "krput.h"
 
 int main()
 {
@@ -54,15 +55,35 @@ int main()
             printf("\n");
         }
         break;
-    case '2':
-        printf("Эта задача временно недоступна\n");
-        exit(1);
+    case '2':;
+        Clover* kr = (Clover*)malloc(sizeof(Clover));
+        kr->ver = (int*)calloc(graph->matrix_size, sizeof(int));
+        if (!kr->ver) {
+            free(kr->ver);
+        }
+        kr->k = 1;
+        kr->ves = 0;
+        //Запускаем поиск кратчайшего пути
+        kr = krPut(graph, start, end, kr);
+
+        //Проверяем рузультат работы функции
+        printf("\nВывод кратчайшего пути\n");
+        for (int i = 0; i <= kr->k - 1; i++) {
+            printf("%3d ", kr->ver[i]);
+            if (i != kr->k - 1) {
+                printf(" - > ");
+            }
+        }
+        printf(" = %d", kr->ves);
+        printf("\n");
+        break;
+
     case '3':
         printf("Эта задача временно недоступна\n");
-        exit(1);
+        break;
     default:
         printf("Выбранный номер задачи находится вне диапазона\n");
-        exit(1);
+        break;
     }
 
     for (int i = 0; i < graph->matrix_size; i++) {
