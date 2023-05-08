@@ -41,7 +41,7 @@ int main()
         aim->all_paths = prepare_two_dim_arr(aim->all_paths);
         aim->number = 0;
         // Запускаем поиск путей
-        aim = how_many_paths(start, end, graph, aim);
+        aim = how_many_paths(start - 1, end - 1, graph, aim);
 
         // Проверяем результат работы функций
         printf("Найдено %d пути(ей):\n", aim->number);
@@ -49,9 +49,9 @@ int main()
             printf("%d. ", i + 1);
             int j = 0;
             for (j = 0; j < MAX_SIZE && aim->all_paths[i][j + 1] != -1; j++) {
-                printf("%d -> ", aim->all_paths[i][j]);
+                printf("%d -> ", (aim->all_paths[i][j] + 1));
             }
-            printf("%d", aim->all_paths[i][j]);
+            printf("%d", (aim->all_paths[i][j] + 1));
             printf("\n");
         }
         break;
