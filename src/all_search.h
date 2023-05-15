@@ -17,4 +17,3 @@ typedef struct paths {
 
 void paths_search(int start, int end, Matrix* graph, Paths* aim, Tools* search);
 Paths* how_many_paths(int start, int end, Matrix* graph, Paths* aim);
-Paths* new_path(int size);
