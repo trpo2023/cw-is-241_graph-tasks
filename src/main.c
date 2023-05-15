@@ -4,6 +4,7 @@
 #include "all_search.h"
 #include "input.h"
 #include "krput.h"
+#include "long_quest.h"
 
 int main()
 {
@@ -78,9 +79,23 @@ int main()
         printf("\n");
         break;
 
-    case '3':
-        printf("Эта задача временно недоступна\n");
+    case '3':;
+        Roads* target = (Roads*)malloc(sizeof(Roads));
+        target->path = malloc(MAX_SIZE * sizeof(int));
+        target->path_dist = 0;
+        // Запускаем поиск путей
+        target = which_longer(start - 1, end - 1, graph, target);
+
+        // Проверяем результат работы функций
+        int j = 0;
+        for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
+            printf("%d -> ", target->path[j] + 1);
+        }
+        printf("%d = %d", target->path[j] + 1, target->path_dist);
+        printf("\n");
+
         break;
+
     default:
         printf("Выбранный номер задачи находится вне диапазона\n");
         break;
