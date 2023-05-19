@@ -12,13 +12,7 @@ Clover* krPut(Matrix* graph, int start, int end, Clover* kr)
     int d[graph->matrix_size];
     int v[graph->matrix_size];
     int temp, minindex, min;
-    // Вывод матрицы связей
-    // for (int i = 0; i < graph->matrix_size; i++) {
-    //     for (int j = 0; j < graph->matrix_size; j++) {
-    //         printf("%5d ",  graph->matrix[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+
     //Инициализация вершин и расстояний
     for (int i = 0; i < graph->matrix_size; i++) {
         d[i] = 10000;

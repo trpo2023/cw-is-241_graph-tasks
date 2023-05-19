@@ -5,6 +5,7 @@
 #include "input.h"
 #include "krput.h"
 #include "long_quest.h"
+#include "output.h"
 
 int main()
 {
@@ -43,18 +44,8 @@ int main()
         aim->number = 0;
         // Запускаем поиск путей
         aim = how_many_paths(start - 1, end - 1, graph, aim);
-
-        // Проверяем результат работы функций
-        printf("Найдено %d пути(ей):\n", aim->number);
-        for (int i = 0; i < aim->number; i++) {
-            printf("%d. ", i + 1);
-            int j = 0;
-            for (j = 0; j < MAX_SIZE && aim->all_paths[i][j + 1] != -1; j++) {
-                printf("%d -> ", (aim->all_paths[i][j] + 1));
-            }
-            printf("%d", (aim->all_paths[i][j] + 1));
-            printf("\n");
-        }
+        // Выводим результат работы функций
+        output(choice, aim, NULL, NULL);
         break;
     case '2':;
         Clover* kr = (Clover*)malloc(sizeof(Clover));
@@ -66,36 +57,18 @@ int main()
         kr->ves = 0;
         //Запускаем поиск кратчайшего пути
         kr = krPut(graph, start, end, kr);
-
-        //Проверяем рузультат работы функции
-        printf("\nВывод кратчайшего пути\n");
-        for (int i = 0; i <= kr->k - 1; i++) {
-            printf("%3d ", kr->ver[i]);
-            if (i != kr->k - 1) {
-                printf(" - > ");
-            }
-        }
-        printf(" = %d", kr->ves);
-        printf("\n");
+        //Вывод рузультат работы функции
+        output(choice, NULL, kr, NULL);
         break;
-
     case '3':;
         Roads* target = (Roads*)malloc(sizeof(Roads));
         target->path = malloc(MAX_SIZE * sizeof(int));
         target->path_dist = 0;
         // Запускаем поиск путей
         target = which_longer(start - 1, end - 1, graph, target);
-
-        // Проверяем результат работы функций
-        int j = 0;
-        for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
-            printf("%d -> ", target->path[j] + 1);
-        }
-        printf("%d = %d", target->path[j] + 1, target->path_dist);
-        printf("\n");
-
+        // Вывод результат работы функций
+        output(choice, NULL, NULL, target);
         break;
-
     default:
         printf("Выбранный номер задачи находится вне диапазона\n");
         break;
