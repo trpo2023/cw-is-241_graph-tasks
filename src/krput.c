@@ -12,7 +12,6 @@ Clover* krPut(Matrix* graph, int start, int end, Clover* kr)
     int d[graph->matrix_size];
     int v[graph->matrix_size];
     int temp, minindex, min;
-
     //Инициализация вершин и расстояний
     for (int i = 0; i < graph->matrix_size; i++) {
         d[i] = 10000;
@@ -44,7 +43,6 @@ Clover* krPut(Matrix* graph, int start, int end, Clover* kr)
         }
     } while (minindex < 10000);
     // Восстановление пути
-
     kr->ver[0] = end + 1;
     kr->ves = d[end];
     int weight = d[end];
