@@ -1,4 +1,5 @@
 app
+output.txt
 *.[oad]
 *.swp
 *.save

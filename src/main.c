@@ -21,17 +21,17 @@ int main()
     read_matrix(filename, graph);
 
     // Вывод матрицы
-    printf("Матрица:\n");
+    printf("\nМатрица:\n");
     for (int i = 0; i < graph->matrix_size; i++) {
         for (int j = 0; j < graph->matrix_size; j++) {
-            printf("%d ", graph->matrix[i][j]);
+            printf("%3d ", graph->matrix[i][j]);
         }
         printf("\n");
     }
 
     int start, end;
     char choice;
-    printf("Введите начальную и конечную вершину и выберите задачу из "
+    printf("\nВведите начальную и конечную вершину и выберите задачу из "
            "списка:\n");
     printf("1)Количество различных путей между городами\n2)Кратчайший путь "
            "между городами\n3)Длиннейший путь между городами\n");
