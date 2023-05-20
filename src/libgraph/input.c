@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "input.h"
+#include <libgraph/input.h>
 
 int** prepare_two_dim_arr(int** arr)
 {

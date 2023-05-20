@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "all_search.h"
-#include "input.h"
-#include "krput.h"
+#include <libgraph/all_search.h>
+#include <libgraph/input.h>
+#include <libgraph/krput.h>
 
 Clover* krPut(Matrix* graph, int start, int end, Clover* kr)
 {

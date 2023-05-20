@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "all_search.h"
-#include "input.h"
+#include <libgraph/all_search.h>
+#include <libgraph/input.h>
 
 // Рекурсивная функция для обхода графа в глубину и нахождения всех путей
 void paths_search(int start, int end, Matrix* graph, Paths* aim, Tools* search)

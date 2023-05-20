@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "all_search.h"
-#include "input.h"
-#include "krput.h"
-#include "long_quest.h"
-#include "output.h"
+#include <libgraph/all_search.h>
+#include <libgraph/input.h>
+#include <libgraph/krput.h>
+#include <libgraph/long_quest.h>
+#include <libgraph/output.h>
 
 int main()
 {

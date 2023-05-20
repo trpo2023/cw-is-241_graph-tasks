@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "input.h"
-#include "long_quest.h"
+#include <libgraph/input.h>
+#include <libgraph/long_quest.h>
 
 // Рекурсивная функция для обхода графа в глубину и нахождения всех путей
 void quest_roads(
