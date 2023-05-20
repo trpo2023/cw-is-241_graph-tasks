@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "all_search.h"
-
-#include "input.h"
-#include "krput.h"
-#include "long_quest.h"
-#include "output.h"
+#include <libgraph/all_search.h>
+#include <libgraph/input.h>
+#include <libgraph/krput.h>
+#include <libgraph/long_quest.h>
+#include <libgraph/output.h>
 
 void output(char choice, Paths* aim, Clover* kr, Roads* target)
 {
@@ -47,7 +46,7 @@ void output(char choice, Paths* aim, Clover* kr, Roads* target)
                 fprintf(fp, "\n");
             }
             fclose(fp);
-            printf("Файл был хаписан\n");
+            printf("Файл был записан\n");
             break;
         case 3:;
             printf("\nНайдено %d пути(ей):\n", aim->number);
