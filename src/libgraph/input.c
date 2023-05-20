@@ -7,8 +7,14 @@
 int** prepare_two_dim_arr(int** arr)
 {
     arr = malloc(MAX_SIZE * sizeof(int*));
+    if (!arr) {
+        free(arr);
+    }
     for (int i = 0; i < MAX_SIZE; i++) {
         arr[i] = malloc(MAX_SIZE * sizeof(int));
+        if (!arr[i]) {
+            free(arr[i]);
+        }
     }
 
     return arr;
