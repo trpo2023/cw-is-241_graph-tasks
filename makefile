@@ -56,7 +56,7 @@ clean:
 
 
 run: all
-	$(APP_PATH)
+	$(APP_PATH) $(TEST_PATH)
 
 -include $(DEPS)
 
