@@ -143,7 +143,7 @@ void output(char choice, Paths* aim, Clover* kr, Roads* target)
         switch (choys) {
         case 1:;
             int j = 0;
-            printf("\nДлинна длинейшего пути:\n");
+            printf("\nДлина длинейшего пути:\n");
             for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
                 printf("%d -> ", target->path[j] + 1);
             }
@@ -153,7 +153,7 @@ void output(char choice, Paths* aim, Clover* kr, Roads* target)
         case 2:;
             FILE* fp = fopen("output.txt", "w");
             j = 0;
-            fprintf(fp, "Длинна длинейшего пути:\n");
+            fprintf(fp, "Длина длинейшего пути:\n");
             for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
                 fprintf(fp, "%d - > ", target->path[j] + 1);
             }
@@ -164,7 +164,7 @@ void output(char choice, Paths* aim, Clover* kr, Roads* target)
             break;
         case 3:;
             j = 0;
-            printf("\nДлинна длинейшего пути:\n");
+            printf("\nДлина длинейшего пути:\n");
             for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
                 printf("%d -> ", target->path[j] + 1);
             }
@@ -173,7 +173,7 @@ void output(char choice, Paths* aim, Clover* kr, Roads* target)
 
             FILE* f = fopen("output.txt", "w");
             j = 0;
-            fprintf(f, "Длинна длинейшего пути:\n");
+            fprintf(f, "Длина длинейшего пути:\n");
             for (j = 0; j < MAX_SIZE && target->path[j + 1] != -1; j++) {
                 fprintf(f, "%d - > ", target->path[j] + 1);
             }
