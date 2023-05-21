@@ -37,6 +37,15 @@ int main()
            "между городами\n3)Длиннейший путь между городами\n");
     scanf("%d %d %c", &start, &end, &choice);
 
+    if ((start > graph->matrix_size) || (end > graph->matrix_size)) {
+        printf("Номера вершин выбраны некорректно\n");
+        for (int i = 0; i < graph->matrix_size; i++) {
+            free(graph->matrix[i]);
+        }
+        free(graph);
+        exit(-1);
+    }
+
     switch (choice) {
     case '1':;
         Paths* aim = (Paths*)malloc(sizeof(Paths));
