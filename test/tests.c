@@ -3,6 +3,7 @@
 
 #include <libgraph/all_search.h>
 #include <libgraph/input.h>
+#include <libgraph/long_quest.h>
 
 CTEST(all_search, search)
 {
@@ -224,4 +225,173 @@ CTEST(input, read_matrix)
         free(graph_2->matrix[i]);
     }
     free(graph_2);
+}
+
+CTEST(long_quest, quest)
+{
+    Matrix* quest_1 = (Matrix*)malloc(sizeof(Matrix));
+    quest_1->matrix = prepare_two_dim_arr(quest_1->matrix);
+
+    quest_1->matrix[0][0] = 0;
+    quest_1->matrix[0][1] = 5;
+    quest_1->matrix[0][2] = 0;
+    quest_1->matrix[0][3] = 4;
+    quest_1->matrix[0][4] = 6;
+
+    quest_1->matrix[1][0] = 5;
+    quest_1->matrix[1][1] = 0;
+    quest_1->matrix[1][2] = 3;
+    quest_1->matrix[1][3] = 0;
+    quest_1->matrix[1][4] = 0;
+
+    quest_1->matrix[2][0] = 0;
+    quest_1->matrix[2][1] = 3;
+    quest_1->matrix[2][2] = 0;
+    quest_1->matrix[2][3] = 6;
+    quest_1->matrix[2][4] = 10;
+
+    quest_1->matrix[3][0] = 4;
+    quest_1->matrix[3][1] = 0;
+    quest_1->matrix[3][2] = 6;
+    quest_1->matrix[3][3] = 0;
+    quest_1->matrix[3][4] = 5;
+
+    quest_1->matrix[4][0] = 6;
+    quest_1->matrix[4][1] = 0;
+    quest_1->matrix[4][2] = 10;
+    quest_1->matrix[4][3] = 5;
+    quest_1->matrix[4][4] = 0;
+
+    quest_1->matrix_size = 5;
+
+    Roads* target = (Roads*)malloc(sizeof(Roads));
+    target->path = malloc(MAX_SIZE * sizeof(int));
+    if (!target->path) {
+        free(target->path);
+    }
+    target->path_dist = 0;
+
+    int start = 1;
+    int end = 5;
+    target = which_longer(start - 1, end - 1, quest_1, target);
+    int expected = 20;
+    int result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    start = 5;
+    end = 3;
+    target = which_longer(start - 1, end - 1, quest_1, target);
+    expected = 17;
+    result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    start = 1;
+    end = 2;
+    target = which_longer(start - 1, end - 1, quest_1, target);
+    expected = 22;
+    result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    for (int i = 0; i < quest_1->matrix_size; i++) {
+        free(quest_1->matrix[i]);
+    }
+    free(quest_1);
+
+    Matrix* quest_2 = (Matrix*)malloc(sizeof(Matrix));
+    quest_2->matrix = prepare_two_dim_arr(quest_2->matrix);
+
+    quest_2->matrix[0][0] = 0;
+    quest_2->matrix[0][1] = 19;
+    quest_2->matrix[0][2] = 10;
+    quest_2->matrix[0][3] = 0;
+    quest_2->matrix[0][4] = 0;
+    quest_2->matrix[0][5] = 0;
+    quest_2->matrix[0][6] = 0;
+
+    quest_2->matrix[1][0] = 19;
+    quest_2->matrix[1][1] = 0;
+    quest_2->matrix[1][2] = 15;
+    quest_2->matrix[1][3] = 0;
+    quest_2->matrix[1][4] = 0;
+    quest_2->matrix[1][5] = 0;
+    quest_2->matrix[1][6] = 0;
+
+    quest_2->matrix[2][0] = 10;
+    quest_2->matrix[2][1] = 15;
+    quest_2->matrix[2][2] = 0;
+    quest_2->matrix[2][3] = 7;
+    quest_2->matrix[2][4] = 0;
+    quest_2->matrix[2][5] = 4;
+    quest_2->matrix[2][6] = 0;
+
+    quest_2->matrix[3][0] = 0;
+    quest_2->matrix[3][1] = 0;
+    quest_2->matrix[3][2] = 7;
+    quest_2->matrix[3][3] = 0;
+    quest_2->matrix[3][4] = 23;
+    quest_2->matrix[3][5] = 0;
+    quest_2->matrix[3][6] = 0;
+
+    quest_2->matrix[4][0] = 0;
+    quest_2->matrix[4][1] = 0;
+    quest_2->matrix[4][2] = 0;
+    quest_2->matrix[4][3] = 23;
+    quest_2->matrix[4][4] = 0;
+    quest_2->matrix[4][5] = 8;
+    quest_2->matrix[4][6] = 12;
+
+    quest_2->matrix[5][0] = 0;
+    quest_2->matrix[5][1] = 0;
+    quest_2->matrix[5][2] = 4;
+    quest_2->matrix[5][3] = 0;
+    quest_2->matrix[5][4] = 8;
+    quest_2->matrix[5][5] = 0;
+    quest_2->matrix[5][6] = 0;
+
+    quest_2->matrix[6][0] = 0;
+    quest_2->matrix[6][1] = 0;
+    quest_2->matrix[6][2] = 0;
+    quest_2->matrix[6][3] = 0;
+    quest_2->matrix[6][4] = 0;
+    quest_2->matrix[6][5] = 12;
+    quest_2->matrix[6][6] = 0;
+
+    quest_2->matrix_size = 7;
+
+    start = 1;
+    end = 4;
+    target = which_longer(start - 1, end - 1, quest_2, target);
+    expected = 69;
+    result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    start = 4;
+    end = 7;
+    target = which_longer(start - 1, end - 1, quest_2, target);
+    expected = 35;
+    result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    start = 6;
+    end = 3;
+    target = which_longer(start - 1, end - 1, quest_2, target);
+    expected = 38;
+    result = target->path_dist;
+    ASSERT_EQUAL(expected, result);
+    target->path_dist = 0;
+
+    for (int i = 0; i < quest_2->matrix_size; i++) {
+        free(quest_2->matrix[i]);
+    }
+    free(quest_2);
+
+    for (int i = 0; i < target->path_dist; i++) {
+        free(target->path);
+    }
+    free(target);
 }
