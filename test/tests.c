@@ -3,6 +3,7 @@
 
 #include <libgraph/all_search.h>
 #include <libgraph/input.h>
+#include <libgraph/krput.h>
 #include <libgraph/long_quest.h>
 
 CTEST(all_search, search)
@@ -394,4 +395,172 @@ CTEST(long_quest, quest)
         free(target->path);
     }
     free(target);
+}
+
+CTEST(krput, shortest)
+{
+    Matrix* graph_1 = (Matrix*)malloc(sizeof(Matrix));
+    graph_1->matrix = prepare_two_dim_arr(graph_1->matrix);
+
+    graph_1->matrix[0][0] = 0;
+    graph_1->matrix[0][1] = 5;
+    graph_1->matrix[0][2] = 0;
+    graph_1->matrix[0][3] = 4;
+    graph_1->matrix[0][4] = 6;
+
+    graph_1->matrix[1][0] = 5;
+    graph_1->matrix[1][1] = 0;
+    graph_1->matrix[1][2] = 3;
+    graph_1->matrix[1][3] = 0;
+    graph_1->matrix[1][4] = 0;
+
+    graph_1->matrix[2][0] = 0;
+    graph_1->matrix[2][1] = 3;
+    graph_1->matrix[2][2] = 0;
+    graph_1->matrix[2][3] = 6;
+    graph_1->matrix[2][4] = 10;
+
+    graph_1->matrix[3][0] = 4;
+    graph_1->matrix[3][1] = 0;
+    graph_1->matrix[3][2] = 6;
+    graph_1->matrix[3][3] = 0;
+    graph_1->matrix[3][4] = 5;
+
+    graph_1->matrix[4][0] = 6;
+    graph_1->matrix[4][1] = 0;
+    graph_1->matrix[4][2] = 10;
+    graph_1->matrix[4][3] = 5;
+    graph_1->matrix[4][4] = 0;
+
+    graph_1->matrix_size = 5;
+
+    Clover* kr = (Clover*)malloc(sizeof(Clover));
+    kr->ver = malloc(MAX_SIZE * sizeof(int));
+    if (!kr->ver) {
+        free(kr->ver);
+    }
+    kr->k = 1;
+    kr->ves = 0;
+
+    int start = 1;
+    int end = 5;
+    kr = krPut(graph_1, start, end, kr);
+    int expected = 6;
+    int result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    start = 4;
+    end = 2;
+    kr = krPut(graph_1, start, end, kr);
+    expected = 9;
+    result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    start = 2;
+    end = 3;
+    kr = krPut(graph_1, start, end, kr);
+    expected = 3;
+    result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    for (int i = 0; i < graph_1->matrix_size; i++) {
+        free(graph_1->matrix[i]);
+    }
+    free(graph_1);
+
+    Matrix* graph_2 = (Matrix*)malloc(sizeof(Matrix));
+    graph_2->matrix = prepare_two_dim_arr(graph_2->matrix);
+
+    graph_2->matrix[0][0] = 0;
+    graph_2->matrix[0][1] = 19;
+    graph_2->matrix[0][2] = 10;
+    graph_2->matrix[0][3] = 0;
+    graph_2->matrix[0][4] = 0;
+    graph_2->matrix[0][5] = 0;
+    graph_2->matrix[0][6] = 0;
+
+    graph_2->matrix[1][0] = 19;
+    graph_2->matrix[1][1] = 0;
+    graph_2->matrix[1][2] = 15;
+    graph_2->matrix[1][3] = 0;
+    graph_2->matrix[1][4] = 0;
+    graph_2->matrix[1][5] = 0;
+    graph_2->matrix[1][6] = 0;
+
+    graph_2->matrix[2][0] = 10;
+    graph_2->matrix[2][1] = 15;
+    graph_2->matrix[2][2] = 0;
+    graph_2->matrix[2][3] = 7;
+    graph_2->matrix[2][4] = 0;
+    graph_2->matrix[2][5] = 4;
+    graph_2->matrix[2][6] = 0;
+
+    graph_2->matrix[3][0] = 0;
+    graph_2->matrix[3][1] = 0;
+    graph_2->matrix[3][2] = 7;
+    graph_2->matrix[3][3] = 0;
+    graph_2->matrix[3][4] = 23;
+    graph_2->matrix[3][5] = 0;
+    graph_2->matrix[3][6] = 0;
+
+    graph_2->matrix[4][0] = 0;
+    graph_2->matrix[4][1] = 0;
+    graph_2->matrix[4][2] = 0;
+    graph_2->matrix[4][3] = 23;
+    graph_2->matrix[4][4] = 0;
+    graph_2->matrix[4][5] = 8;
+    graph_2->matrix[4][6] = 12;
+
+    graph_2->matrix[5][0] = 0;
+    graph_2->matrix[5][1] = 0;
+    graph_2->matrix[5][2] = 4;
+    graph_2->matrix[5][3] = 0;
+    graph_2->matrix[5][4] = 8;
+    graph_2->matrix[5][5] = 0;
+    graph_2->matrix[5][6] = 0;
+
+    graph_2->matrix[6][0] = 0;
+    graph_2->matrix[6][1] = 0;
+    graph_2->matrix[6][2] = 0;
+    graph_2->matrix[6][3] = 0;
+    graph_2->matrix[6][4] = 0;
+    graph_2->matrix[6][5] = 12;
+    graph_2->matrix[6][6] = 0;
+
+    graph_2->matrix_size = 7;
+
+    start = 2;
+    end = 5;
+    kr = krPut(graph_2, start, end, kr);
+    expected = 27;
+    result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    start = 3;
+    end = 7;
+    kr = krPut(graph_2, start, end, kr);
+    expected = 24;
+    result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    start = 1;
+    end = 4;
+    kr = krPut(graph_2, start, end, kr);
+    expected = 17;
+    result = kr->ves;
+    ASSERT_EQUAL(expected, result);
+    kr->ves = 0;
+
+    for (int i = 0; i < graph_2->matrix_size; i++) {
+        free(graph_2->matrix[i]);
+    }
+    free(graph_2);
+
+    free(kr->ver);
+    free(kr);
 }

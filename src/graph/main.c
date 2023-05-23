@@ -63,7 +63,7 @@ int main()
         break;
     case '2':;
         Clover* kr = (Clover*)malloc(sizeof(Clover));
-        kr->ver = (int*)calloc(graph->matrix_size, sizeof(int));
+        kr->ver = malloc(MAX_SIZE * sizeof(int));
         if (!kr->ver) {
             free(kr->ver);
         }
